@@ -29,7 +29,6 @@ const App = () => {
 
       <div id='transactionExplorer'>
         <TextBlock text='View detailed Ethereum transaction data by entering a wallet address and starting block. Explore all transactions from the starting block to the current block, including addresses and ETH amounts, in a clear and readable format.' />
-
         <WalletInput onSubmit={handleWalletSubmit} />
         {wallet && block && <Transactions wallet={wallet} startBlock={block} />}
       </div>
