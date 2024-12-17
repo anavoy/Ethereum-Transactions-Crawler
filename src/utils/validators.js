@@ -1,5 +1,5 @@
 export const validateWallet = (wallet) => {
-  const cleanedWallet = wallet.trim().replace(/\s+/g, ' '); 
+  const cleanedWallet = wallet.trim().replace(/\s+/g, ' ');
 
   if (!cleanedWallet) {
     return 'Wallet address is required.';
@@ -13,7 +13,7 @@ export const validateWallet = (wallet) => {
 };
 
 export const validateBlock = (block) => {
-  const cleanedBlock = block.trim().replace(/\s+/g, ''); 
+  const cleanedBlock = block.trim().replace(/\s+/g, '');
 
   if (!cleanedBlock) {
     return 'Block number is required.';

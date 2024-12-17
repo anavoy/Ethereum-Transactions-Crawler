@@ -1,0 +1,19 @@
+.button {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  background-color: var(--color-text);
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  letter-spacing: 1px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 1rem;
+}
+
+.button:hover {
+  background-color: var(--color-footer);
+}

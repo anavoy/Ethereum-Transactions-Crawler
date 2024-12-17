@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { validateWallet, validateBlock } from '../../utils/validators'; 
+import { validateWallet, validateBlock } from '../../utils/validators';
+import InputField from '../InputField/inputField';
+import Button from '../Button/button';
 import './walletInput.css';
 
 const WalletInput = ({ onSubmit }) => {
@@ -17,33 +19,31 @@ const WalletInput = ({ onSubmit }) => {
     const blockError = validateBlock(trimmedBlock);
 
     if (walletError || blockError) {
-      setError(walletError || blockError); 
+      setError(walletError || blockError);
       return;
     }
 
     setError('');
-    onSubmit(trimmedWallet, trimmedBlock); 
+    onSubmit(trimmedWallet, trimmedBlock);
   };
 
   return (
     <div className='wallet-input'>
       <form className='wallet-input__form' onSubmit={handleSubmit}>
-        <input
-          type='text'
+        <InputField
           id='wallet'
           value={wallet}
-          onChange={(e) => setWallet(e.target.value)} 
+          onChange={(e) => setWallet(e.target.value)}
           placeholder='Enter Ethereum Wallet Address'
         />
-        <input
-          type='text'
+        <InputField
           id='block'
           value={block}
-          onChange={(e) => setBlock(e.target.value)} 
+          onChange={(e) => setBlock(e.target.value)}
           placeholder='Enter Starting Block Number'
         />
-        {error && <p className='error'>{error}</p>} 
-        <button type='submit'>Fetch Transactions</button>
+        {error && <p className='error'>{error}</p>}
+        <Button type='submit'>Fetch Transactions</Button>
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
 // TextBlock.js
 import React from 'react';
-import './text.css'; 
+import './text.css';
 
 const TextBlock = ({ text }) => {
   return (

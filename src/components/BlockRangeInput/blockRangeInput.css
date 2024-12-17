@@ -1,0 +1,30 @@
+.block-range-section {
+  padding: 3rem 1rem;
+  margin-top: 5rem;
+  background-color: #15171c; 
+  color: #fff;
+  text-align: center;
+}
+
+.block-range-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; 
+  padding: 1rem 0;
+}
+
+.block-range-input__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.block-range-error {
+  color: #ff4d4d;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}

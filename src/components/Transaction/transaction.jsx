@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import fetchTransactions from '../../api/ethApi';
+import {fetchTransactions} from '../../api/ethApi';
 import TransactionList from '../TransactionList/transactionList';
 import './transaction.css';
 
@@ -45,7 +45,6 @@ const Transactions = ({ wallet, startBlock }) => {
       )}
     </div>
   );
-
 };
 
 export default Transactions;

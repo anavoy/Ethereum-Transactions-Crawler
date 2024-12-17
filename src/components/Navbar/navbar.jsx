@@ -41,17 +41,27 @@ const Navbar = () => {
         )}
         {toggleMenu && (
           <div className='transaction__navbar-menu_container scale-up-center'>
-            <div className='transaction__navbar-menu_container-links'>
-              <p>
-                <a href='#transactionExplorer'>Transaction Explorer</a>
-              </p>
-              <p>
-                <a href='#rangeTransaction'>Block Range Transactions</a>
-              </p>
-              <p>
-                <a href='#dateBasedTransactions'>Date-Based Transactions</a>
-              </p>
-            </div>
+            <p>
+              <a
+                href='#transactionExplorer'
+                onClick={() => setToggleMenu(false)}
+              >
+                Transaction Explorer
+              </a>
+            </p>
+            <p>
+              <a href='#rangeTransaction' onClick={() => setToggleMenu(false)}>
+                Block Range Transactions
+              </a>
+            </p>
+            <p>
+              <a
+                href='#dateBasedTransactions'
+                onClick={() => setToggleMenu(false)}
+              >
+                Date-Based Transactions
+              </a>
+            </p>
           </div>
         )}
       </div>

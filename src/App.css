@@ -52,6 +52,30 @@ a {
 	animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
+.home-section {
+  height: 100vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--color-bg); 
+  color: var(--color-text); 
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.explorer-section {
+  padding: 3rem 1rem;
+  margin-top: 5rem; 
+  background-color: #15171c; 
+  color: #fff;
+  text-align: center;
+}
+
+html {
+  scroll-behavior: smooth; 
+}
+
 @-webkit-keyframes scale-up-center {
   0% {
     -webkit-transform: scale(0.5);

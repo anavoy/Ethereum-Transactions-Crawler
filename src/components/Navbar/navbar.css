@@ -21,7 +21,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-   font-weight: bold;
+  font-weight: bold;
 }
 
 .transaction__navbar-links_container {
@@ -38,7 +38,7 @@
   line-height: 25px;
   text-transform: capitalize;
   cursor: pointer;
-   font-weight: bold;
+  font-weight: bold;
 }
 
 .transaction__navbar-menu {
@@ -66,7 +66,6 @@
 @media screen and (max-width: 1050px) {
   .transaction__navbar-links_container {
     display: none;
-
   }
 
   .transaction__navbar-menu {
@@ -82,9 +81,9 @@
   .transaction__navbar-menu_container {
     top: 40px;
     right: 10px;
-
   }
 }
+
 @keyframes scale-up-center {
   0% {
     transform: scale(0.5);
