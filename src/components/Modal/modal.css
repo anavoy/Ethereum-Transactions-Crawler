@@ -25,7 +25,6 @@
   word-wrap: break-word;
 }
 
-
 .modal-close {
   position: absolute;
   top: 10px;
@@ -43,26 +42,27 @@
 }
 
 .modal-body {
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1.5;
   text-align: center;
   color: #f1f2f6;
   margin-top: 0.5rem;
 }
 
-
 .modal-body p {
   margin: 0.5rem 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
   line-height: 1.4;
+  font-weight: bold;
+  font-size: 1rem;
+
 }
 
 .modal-body strong {
-  color: #34e7e4;
+  color: var(--color-text);
   font-weight: bold;
 }
-
 
 @media screen and (max-width: 768px) {
   .modal-content {

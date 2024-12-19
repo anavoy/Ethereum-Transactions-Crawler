@@ -87,7 +87,9 @@ const TransactionList = ({ transactions, wallet }) => {
 
   return (
     <div className='transaction-list-container'>
-      <h2 className='transaction-header transaction-size-header'>Transactions list</h2>
+      <h2 className='transaction-header transaction-size-header'>
+        Transactions list
+      </h2>
       <h2 className='transaction-header'>
         Total change: {roundedAmount > 0 ? '+' : '-'}
         {roundedAmount} ETH
@@ -118,7 +120,14 @@ const TransactionList = ({ transactions, wallet }) => {
               {(parseFloat(selectedTransaction.value) / 1e18).toFixed(4)} ETH
             </p>
             <p>
-              <strong>Hash:</strong> {selectedTransaction.hash}
+              <strong>Hash:</strong>{' '}
+              <a
+                href={`https://etherscan.io/tx/${selectedTransaction.hash}`}
+                target='_blank'
+                rel='noreferrer'
+              >
+                {selectedTransaction.hash}
+              </a>
             </p>
           </div>
         </Modal>
