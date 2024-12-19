@@ -38,7 +38,7 @@ const TransactionByDateSection = () => {
 			<section id='dateBasedTransactions' className='explorer-section'>
 				<TextBlock type='h2' text='Date-Based Transactions' as='h2'/>
 				<TextBlock
-						text='Enter a wallet address and date to fetch the balance at that time.'
+						text='Enter a wallet address and date to fetch the balance change at that date.'
 						as='p'
 				/>
 				<TransactionByDateForm onSubmit={handleDateBasedSubmit}/>

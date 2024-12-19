@@ -39,7 +39,7 @@ const TransactionExplorerSection = () => {
 			<section id='transactionExplorer' className='explorer-section'>
 				<TextBlock type='h2' text='Transaction Explorer' as='h2'/>
 				<TextBlock
-						text='Enter a wallet address and starting block to explore transactions.'
+						text='Enter a wallet address and starting block to explore transactions up to newest block.'
 						as='p'
 				/>
 				<TransactionExplorerForm onSubmit={handleWalletSubmit} onWallet/>
