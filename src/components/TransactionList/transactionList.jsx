@@ -39,6 +39,8 @@ const TransactionList = ({ transactions, wallet }) => {
 
 		const received = wallet.toLowerCase() === transaction.to.toLowerCase();
 
+		const formatedDate = new Date(transaction.timeStamp*1000).toISOString().split(".")[0].replace('T', ' ');
+
     return (
       <div
         key={transaction.hash}
@@ -58,6 +60,7 @@ const TransactionList = ({ transactions, wallet }) => {
           {received ? "+": "-"}{roundedAmount} ETH
         </span>
         <span className='transaction-cell transaction-hash'>
+					<strong>Date:</strong> {formatedDate} <br />
           <strong>Hash:</strong> {transaction.hash}
         </span>
       </div>
