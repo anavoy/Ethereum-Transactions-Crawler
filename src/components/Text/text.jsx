@@ -1,11 +1,12 @@
-// TextBlock.js
 import React from 'react';
 import './text.css';
 
-const TextBlock = ({ text }) => {
+const TextBlock = ({ text, as = 'p' }) => {
+  const Tag = as;
+
   return (
     <div className='description-text'>
-      <p>{text}</p>
+      <Tag>{text}</Tag>
     </div>
   );
 };

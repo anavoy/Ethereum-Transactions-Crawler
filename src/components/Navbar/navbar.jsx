@@ -5,6 +5,8 @@ import './navbar.css';
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
+  const handleMenuToggle = () => setToggleMenu(!toggleMenu);
+
   return (
     <div className='transaction__navbar'>
       <h1 className='transaction__navbar-logo'>
@@ -27,38 +29,25 @@ const Navbar = () => {
 
       <div className='transaction__navbar-menu'>
         {toggleMenu ? (
-          <RiCloseLine
-            color='#fff'
-            size={27}
-            onClick={() => setToggleMenu(false)}
-          />
+          <RiCloseLine color='#fff' size={27} onClick={handleMenuToggle} />
         ) : (
-          <RiMenu3Line
-            color='#fff'
-            size={27}
-            onClick={() => setToggleMenu(true)}
-          />
+          <RiMenu3Line color='#fff' size={27} onClick={handleMenuToggle} />
         )}
+
         {toggleMenu && (
-          <div className='transaction__navbar-menu_container scale-up-center'>
+          <div className='transaction__navbar-menu_container'>
             <p>
-              <a
-                href='#transactionExplorer'
-                onClick={() => setToggleMenu(false)}
-              >
+              <a href='#transactionExplorer' onClick={handleMenuToggle}>
                 Transaction Explorer
               </a>
             </p>
             <p>
-              <a href='#rangeTransaction' onClick={() => setToggleMenu(false)}>
+              <a href='#rangeTransaction' onClick={handleMenuToggle}>
                 Block Range Transactions
               </a>
             </p>
             <p>
-              <a
-                href='#dateBasedTransactions'
-                onClick={() => setToggleMenu(false)}
-              >
+              <a href='#dateBasedTransactions' onClick={handleMenuToggle}>
                 Date-Based Transactions
               </a>
             </p>
