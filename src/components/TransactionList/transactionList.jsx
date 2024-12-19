@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { FixedSizeList as List } from 'react-window';
-import Modal from '../Modal/modal'; 
+import Modal from '../Modal/modal';
 import './transactionList.css';
 
-const TransactionList = ({ transactions }) => {
+const TransactionList = ({ transactions, wallet }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [listHeight, setListHeight] = useState(window.innerHeight - 100);
 
-  // useEffect(() => {
-  //   const handleResize = () => setListHeight(window.innerHeight - 100);
-  //   window.addEventListener('resize', handleResize);
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
+
   useEffect(() => {
     const handleResize = () => {
       const newHeight = window.innerHeight - 100;
@@ -41,14 +37,15 @@ const TransactionList = ({ transactions }) => {
     const amountInETH = parseFloat(transaction.value) / 1e18;
     const roundedAmount = amountInETH.toFixed(4);
 
+		const received = wallet.toLowerCase() === transaction.to.toLowerCase();
+
     return (
       <div
-        key={transaction.hash} 
+        key={transaction.hash}
         className='transaction-row'
         style={style}
         onClick={() => handleRowClick(transaction)}
         role='button'
-        // tabIndex={0}
         tabIndex={-1}
       >
         <span className='transaction-cell transaction-from'>
@@ -57,8 +54,8 @@ const TransactionList = ({ transactions }) => {
         <span className='transaction-cell transaction-to'>
           <strong>To:</strong> {transaction.to}
         </span>
-        <span className='transaction-cell transaction-amount'>
-          <strong>Value:</strong> {roundedAmount} ETH
+        <span className={`transaction-cell transaction-amount ${received ? 'transaction-amount-positive' : 'transaction-amount-negative'}`}>
+          {received ? "+": "-"}{roundedAmount} ETH
         </span>
         <span className='transaction-cell transaction-hash'>
           <strong>Hash:</strong> {transaction.hash}
@@ -72,7 +69,7 @@ const TransactionList = ({ transactions }) => {
       <h2 className='transaction-header'>Transactions list</h2>
       <div className='transaction-list'>
         <List
-          height={Math.min(listHeight, 500)} 
+          height={Math.min(listHeight, 500)}
           itemCount={filteredTransactions.length}
           itemSize={80}
           width='100%'

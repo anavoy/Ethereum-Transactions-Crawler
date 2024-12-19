@@ -12,7 +12,7 @@
 .transaction-list-container {
   width: 100%;
   max-width: 2000px;
-  margin: 1 auto;
+  margin: 1px auto;
   /* padding: 0.5rem;  */
 }
 
@@ -61,9 +61,15 @@
 }
 
 .transaction-amount {
-  color: #0be881;
   font-weight: bold;
   text-align: center;
+}
+
+.transaction-amount-positive {
+    color: #0be881;
+}
+.transaction-amount-negative {
+    color: var(--color-error);
 }
 
 .transaction-hash {
