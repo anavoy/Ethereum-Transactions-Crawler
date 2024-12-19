@@ -1,17 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  width: 100%;
-  height: 100%;
-  background-color: #1e272e;
-  /* font-family: Arial, sans-serif; */
-  overflow-x: hidden;
-}
-
 .transaction-cell {
   flex: 1;
   margin: 0 0.3rem;
