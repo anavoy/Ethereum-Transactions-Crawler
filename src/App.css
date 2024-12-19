@@ -3,7 +3,7 @@
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-  
+
 }
 
 .transactions {
@@ -18,12 +18,12 @@
 .explorer-section {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   text-align: center;
-  height: 100vh; 
+  min-height: 100vh;
   margin: 0;
-  padding: 0 1rem; 
+  padding: 0 1rem;
   box-sizing: border-box;
 }
 
@@ -176,7 +176,7 @@ a {
 }
 
 .home-section {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -195,7 +195,7 @@ a {
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #15171c;
   color: #fff;
   padding: 1rem;

@@ -29,8 +29,8 @@ const fetchFromEtherscan = async (params) => {
 
 /**
  * Fetch all transactions for a given wallet address starting from a block.
- * @param {string} walletAddress 
- * @param {number} startBlock 
+ * @param {string} walletAddress
+ * @param {number} startBlock
  * @returns {Promise<*>} - Returns list of transactions or null.
  */
 export const fetchTransactions = async (walletAddress, startBlock) => {
@@ -46,10 +46,10 @@ export const fetchTransactions = async (walletAddress, startBlock) => {
 
 /**
  * Fetch transactions within a specific block range.
- * @param {string} walletAddress 
- * @param {number} startBlock 
+ * @param {string} walletAddress
+ * @param {number} startBlock
  * @param {number} endBlock
- * @returns {Promise<*>} 
+ * @returns {Promise<*>}
  */
 export const fetchTransactionsByRange = async (
   walletAddress,
@@ -66,19 +66,40 @@ export const fetchTransactionsByRange = async (
   });
 };
 
+const fetchBlockRangeByDate = async (timestamp) => {
+	return fetchFromEtherscan({
+		module: 'block',
+		action: 'getblocknobytime',
+		closest: 'before',
+		timestamp: timestamp,
+	});
+}
+
 /**
  * Fetch transactions for a given date by filtering based on timestamps.
- * @param {string} walletAddress 
- * @param {string} date 
+ * @param {string} walletAddress
+ * @param {string} date
  * @returns {Promise<*>} - Returns list of filtered transactions or an empty array.
  */
 export const fetchTransactionsByDate = async (walletAddress, date) => {
-  const startOfDayTimestamp = Math.floor(
+  const nowTimestamp = Math.floor(Date.now() / 1000);
+
+	const startOfDayTimestamp = Math.floor(
     new Date(`${date}T00:00:00Z`).getTime() / 1000
   );
   const endOfDayTimestamp = Math.floor(
     new Date(`${date}T23:59:59Z`).getTime() / 1000
   );
+
+	const [startBlock, endBlock] = await Promise.all([
+		fetchBlockRangeByDate(startOfDayTimestamp),
+		fetchBlockRangeByDate(endOfDayTimestamp > nowTimestamp  ? nowTimestamp : endOfDayTimestamp),
+	]);
+
+	if (!startBlock || !endBlock) {
+			logError('fetchTransactionsByDate', 'Failed to fetch block range.');
+			return [];
+	}
 
   try {
     console.log(
@@ -89,8 +110,8 @@ export const fetchTransactionsByDate = async (walletAddress, date) => {
       module: 'account',
       action: 'txlist',
       address: walletAddress,
-      startblock: 0,
-      endblock: 99999999,
+      startblock: startBlock,
+      endblock: endBlock,
       sort: 'asc',
     });
 
@@ -99,18 +120,7 @@ export const fetchTransactionsByDate = async (walletAddress, date) => {
       return [];
     }
 
-    // Filter transactions based on the timestamp range
-    const filteredTransactions = transactions.filter((tx) => {
-      const txTimestamp = parseInt(tx.timeStamp, 10);
-      return (
-        txTimestamp >= startOfDayTimestamp && txTimestamp <= endOfDayTimestamp
-      );
-    });
-
-    console.log(
-      `Found ${filteredTransactions.length} transactions for the specified date.`
-    );
-    return filteredTransactions;
+    return transactions;
   } catch (error) {
     logError('fetchTransactionsByDate', error);
     return [];

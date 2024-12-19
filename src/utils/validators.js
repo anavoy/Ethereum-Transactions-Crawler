@@ -200,10 +200,10 @@ export const validateBlock = (block) => {
     return 'Block number cannot be negative.';
   }
 
-  const maxBlock = 17000000;
-  if (blockNumber > maxBlock) {
-    return `Block number cannot exceed ${maxBlock}.`;
-  }
+  // const maxBlock = 17000000;
+  // if (blockNumber > maxBlock) {
+  //   return `Block number cannot exceed ${maxBlock}.`;
+  // }
 
   return null;
 };
