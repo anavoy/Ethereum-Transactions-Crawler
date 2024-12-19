@@ -1,7 +1,5 @@
 # Ethereum Transactions Crawler
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Setup
 First create `.env` file in the root directory of the project and by copying the contents of `.env.example` file. Then replace the values of the variables with your own values.
 

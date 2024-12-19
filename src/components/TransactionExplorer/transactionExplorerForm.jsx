@@ -43,7 +43,7 @@ const TransactionExplorerForm = ({ onSubmit }) => {
 							id='wallet'
 							value={wallet}
 							onChange={(e) => setWallet(e.target.value)}
-							placeholder='Enter Ethereum Wallet Address'
+							placeholder='Enter Ethereum Wallet Address (case sensitive)'
 							className={error ? 'input-error' : ''}
 					/>
 					<InputField
