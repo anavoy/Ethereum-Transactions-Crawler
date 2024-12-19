@@ -64,41 +64,58 @@ const TransactionList = ({ transactions, wallet }) => {
     );
   };
 
+	const totalChange = transactions.reduce(
+			(accumulator, currentValue) => {
+				if (currentValue.from.toLowerCase() === wallet.toLowerCase()) {
+					accumulator -= parseFloat(currentValue.value);
+				} else {
+					accumulator += parseFloat(currentValue.value);
+				}
+
+				return accumulator;
+			},
+			0,
+	)
+
+	const amountInETH = parseFloat(totalChange) / 1e18;
+	const roundedAmount = amountInETH.toFixed(4);
+
   return (
-    <div className='transaction-list-container'>
-      <h2 className='transaction-header'>Transactions list</h2>
-      <div className='transaction-list'>
-        <List
-          height={Math.min(listHeight, 500)}
-          itemCount={filteredTransactions.length}
-          itemSize={80}
-          width='100%'
-        >
-          {Row}
-        </List>
-      </div>
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <div>
-            <h3>Transaction Details</h3>
-            <p>
-              <strong>From:</strong> {selectedTransaction.from}
-            </p>
-            <p>
-              <strong>To:</strong> {selectedTransaction.to}
-            </p>
-            <p>
-              <strong>Amount:</strong>{' '}
-              {(parseFloat(selectedTransaction.value) / 1e18).toFixed(4)} ETH
-            </p>
-            <p>
-              <strong>Hash:</strong> {selectedTransaction.hash}
-            </p>
-          </div>
-        </Modal>
-      )}
-    </div>
-  );
+			<div className='transaction-list-container'>
+				<h2 className='transaction-header'>Total change: {roundedAmount > 0 ? "+" : "-"}{roundedAmount} ETH</h2>
+				<h2 className='transaction-header'>Transactions list</h2>
+				<div className='transaction-list'>
+					<List
+							height={Math.min(listHeight, 500)}
+							itemCount={filteredTransactions.length}
+							itemSize={80}
+							width='100%'
+					>
+						{Row}
+					</List>
+				</div>
+				{isModalOpen && (
+						<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+							<div>
+								<h3>Transaction Details</h3>
+								<p>
+									<strong>From:</strong> {selectedTransaction.from}
+								</p>
+								<p>
+									<strong>To:</strong> {selectedTransaction.to}
+								</p>
+								<p>
+									<strong>Amount:</strong>{' '}
+									{(parseFloat(selectedTransaction.value) / 1e18).toFixed(4)} ETH
+								</p>
+								<p>
+									<strong>Hash:</strong> {selectedTransaction.hash}
+								</p>
+							</div>
+						</Modal>
+				)}
+			</div>
+	);
 };
 
 export default TransactionList;

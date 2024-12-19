@@ -2,22 +2,26 @@ import TextBlock from "../components/Text/text";
 import React, {useState} from "react";
 import TransactionList from "../components/TransactionList/transactionList";
 import {fetchTransactionsByRange} from "../api/ethApi";
-import BlockRangeForm from "../components/BlockRangeInput/blockRangeForm";
+import TransactionRangeSectionForm from "../components/TransactionRange/TransactionRangeSectionForm";
+import Loader from "../components/Loader/loader";
 
 const TransactionRangeSection = () => {
 	const [wallet, setWallet] = useState('');
 
-	const [blockRangeTransactions, setBlockRangeTransactions] = useState([]);
-	const [rangeError, setRangeError] = useState('');
-
+	const [transactions, setTransactions] = useState([]);
+	const [loading, setLoading] = useState(null);
+	const [error, setError] = useState('');
 
 	const handleBlockRangeSubmit = async (
 			walletAddress,
 			startBlock,
 			endBlock
 	) => {
-		setRangeError('');
-		setBlockRangeTransactions([]);
+		setWallet(walletAddress);
+
+		setLoading(true);
+		setError('');
+		setTransactions([]);
 		try {
 			setWallet(walletAddress);
 			const data = await fetchTransactionsByRange(
@@ -26,12 +30,14 @@ const TransactionRangeSection = () => {
 					endBlock
 			);
 			if (data.length === 0) {
-				setRangeError('No transactions found for the specified range.');
+				setError('No transactions found for the specified range.');
 			} else {
-				setBlockRangeTransactions(data);
+				setTransactions(data);
 			}
 		} catch (err) {
-			setRangeError('An error occurred while fetching transactions.');
+			setError('An error occurred while fetching transactions.');
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -42,10 +48,21 @@ const TransactionRangeSection = () => {
 						text='Enter a wallet address and a range of blocks to fetch transactions.'
 						as='p'
 				/>
-				<BlockRangeForm onSubmit={handleBlockRangeSubmit}/>
-				{rangeError && <p className='error'>{rangeError}</p>}
-				{blockRangeTransactions.length > 0 && (
-						<TransactionList wallet={wallet} transactions={blockRangeTransactions}/>
+				<TransactionRangeSectionForm onSubmit={handleBlockRangeSubmit}/>
+
+				{loading !== null && (
+						<div className='transactions'>
+							{error && <p className='error'>{error}</p>}
+							{loading ? (
+									<Loader/>
+							) : transactions.length > 0 ? (
+									<TransactionList transactions={transactions} wallet={wallet}/>
+							) : (
+									<p className='no-transactions'>
+										No transactions found for the given wallet and block.
+									</p>
+							)}
+						</div>
 				)}
 			</section>
 	)

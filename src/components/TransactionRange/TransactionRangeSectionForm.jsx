@@ -2,9 +2,8 @@ import React, {useState} from 'react';
 import InputField from '../InputField/inputField';
 import Button from '../Button/button';
 import {validateWallet, validateBlock} from '../../utils/validators';
-import Loader from '../Loader/loader';
 
-const BlockRangeForm = ({onSubmit}) => {
+const TransactionRangeSectionForm = ({onSubmit}) => {
 	const [wallet, setWallet] = useState('');
 	const [startBlock, setStartBlock] = useState('');
 	const [endBlock, setEndBlock] = useState('');
@@ -67,12 +66,12 @@ const BlockRangeForm = ({onSubmit}) => {
 								{error}
 							</p>
 					)}
-					<Button type='submit'>
-						{loading ? <Loader/> : 'Fetch Transactions'}
+					<Button type='submit' loading={loading}>
+						Fetch Transactions
 					</Button>
 				</form>
 			</div>
 	);
 };
 
-export default BlockRangeForm;
+export default TransactionRangeSectionForm;

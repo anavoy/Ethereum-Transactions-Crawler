@@ -1,7 +1,12 @@
 import React from 'react';
 import './button.css';
 
-const Button = ({ onClick, children, type = 'button' }) => {
+import Loader from "../Loader/loader";
+
+const Button = ({ onClick, children, type = 'button', loading }) => {
+	if (loading) {
+		<Loader />
+	}
   return (
     <button type={type} className='button' onClick={onClick}>
       {children}

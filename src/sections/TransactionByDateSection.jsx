@@ -1,26 +1,37 @@
 import TextBlock from "../components/Text/text";
 import React, {useState} from "react";
 import {fetchTransactionsByDate} from "../api/ethApi";
-import DateBasedTransactions from "../components/BalanceByDateInput/balanceByDate";
+import Loader from "../components/Loader/loader";
+import TransactionList from "../components/TransactionList/transactionList";
+import TransactionByDateForm from "../components/TransactionByDate/TransactionByDateForm";
 
 const TransactionByDateSection = () => {
-	const [balance, setBalance] = useState(null);
-	const [balanceError, setBalanceError] = useState('');
+	const [wallet, setWallet] = useState('');
+
+	const [transactions, setTransactions] = useState([]);
+	const [totalChange, setTotalChange] = useState(null);
+	const [loading, setLoading] = useState(null);
+	const [error, setError] = useState('');
+
 
 	const handleDateBasedSubmit = async (walletAddress, date) => {
+		setWallet(walletAddress);
 
-		setBalanceError('');
-		setBalance(null);
+		setLoading(true);
+		setError('');
+		setTransactions([]);
 
 		try {
-			const result = await fetchTransactionsByDate(walletAddress, date);
-			if (result) {
-				setBalance((result / 1e18).toFixed(4));
+			const data = await fetchTransactionsByDate(walletAddress, date);
+			if (data.length === 0) {
+				setError('Could not fetch balance. Please check the input.');
 			} else {
-				setBalanceError('Could not fetch balance. Please check the input.');
+				setTransactions(data);
 			}
 		} catch (error) {
-			setBalanceError('An error occurred while fetching the balance.');
+			setError('An error occurred while fetching the balance.');
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -31,12 +42,21 @@ const TransactionByDateSection = () => {
 						text='Enter a wallet address and date to fetch the balance at that time.'
 						as='p'
 				/>
-				<DateBasedTransactions onSubmit={handleDateBasedSubmit}/>
-				{balanceError && <p className='error'>{balanceError}</p>}
-				{balance && (
-						<p className='balance-result'>
-							Balance on the given date: <strong>{balance} ETH</strong>
-						</p>
+				<TransactionByDateForm onSubmit={handleDateBasedSubmit}/>
+
+				{loading !== null && (
+						<div className='transactions'>
+							{error && <p className='error'>{error}</p>}
+							{loading ? (
+									<Loader/>
+							) : transactions.length > 0 ? (
+									<TransactionList transactions={transactions} wallet={wallet}/>
+							) : (
+									<p className='no-transactions'>
+										No transactions found for the given wallet and block.
+									</p>
+							)}
+						</div>
 				)}
 			</section>
 	)
