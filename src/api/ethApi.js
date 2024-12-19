@@ -39,7 +39,7 @@ export const fetchTransactions = async (walletAddress, startBlock) => {
     action: 'txlist',
     address: walletAddress,
     startblock: startBlock,
-    endblock: 99999999,
+    endblock: 99999999, //easier way than fetching the latest block number
     sort: 'asc',
   });
 };

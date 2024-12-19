@@ -9,7 +9,6 @@ const TransactionByDateSection = () => {
 	const [wallet, setWallet] = useState('');
 
 	const [transactions, setTransactions] = useState([]);
-	const [totalChange, setTotalChange] = useState(null);
 	const [loading, setLoading] = useState(null);
 	const [error, setError] = useState('');
 
