@@ -22,6 +22,7 @@ const TransactionExplorerSection = () => {
 
 		try {
 			const data = await fetchTransactions(walletAddress, startBlock);
+
 			if (data.length === 0) {
 				setError('No transactions found.');
 			} else {

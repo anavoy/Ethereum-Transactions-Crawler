@@ -64,15 +64,19 @@ const TransactionList = ({ transactions, wallet }) => {
           {received ? '+' : '-'}
           {roundedAmount} ETH
         </span>
-        <span className='transaction-cell transaction-hash'>
-          <strong>Date:</strong> {formatedDate} <br />
+				<span className='transaction-cell transaction-hash'>
+          <strong>Date:</strong> {formatedDate} <br/>
+					<strong>Status:</strong> {transaction.isError === "0" ? "Completed" : "Failed"} <br/>
           <strong>Hash:</strong> {transaction.hash}
         </span>
-      </div>
-    );
-  };
+			</div>
+		);
+	};
 
-  const totalChange = transactions.reduce((accumulator, currentValue) => {
+	const totalChange = transactions.reduce((accumulator, currentValue) => {
+		if (currentValue.isError === "1")
+			return accumulator;
+
     if (currentValue.from.toLowerCase() === wallet.toLowerCase()) {
       accumulator -= parseFloat(currentValue.value);
     } else {
@@ -107,33 +111,36 @@ const TransactionList = ({ transactions, wallet }) => {
       </div>
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <div>
-            <h3>Transaction Details</h3>
-            <p>
-              <strong>From:</strong> {selectedTransaction.from}
-            </p>
-            <p>
-              <strong>To:</strong> {selectedTransaction.to}
-            </p>
-            <p>
-              <strong>Amount:</strong>{' '}
-              {(parseFloat(selectedTransaction.value) / 1e18).toFixed(4)} ETH
-            </p>
-            <p>
-              <strong>Hash:</strong>{' '}
-              <a
-                href={`https://etherscan.io/tx/${selectedTransaction.hash}`}
-                target='_blank'
-                rel='noreferrer'
-              >
-                {selectedTransaction.hash}
-              </a>
-            </p>
-          </div>
-        </Modal>
-      )}
-    </div>
-  );
+					<div>
+						<h3>Transaction Details</h3>
+						<p>
+							<strong>From:</strong> {selectedTransaction.from}
+						</p>
+						<p>
+							<strong>To:</strong> {selectedTransaction.to}
+						</p>
+						<p>
+							<strong>Amount:</strong>{' '}
+							{(parseFloat(selectedTransaction.value) / 1e18).toFixed(4)} ETH
+						</p>
+						<p>
+							<strong>Status:</strong> {selectedTransaction.isError === "0" ? "Completed" : "Failed"}
+						</p>
+						<p>
+							<strong>Hash:</strong>{' '}
+							<a
+									href={`https://etherscan.io/tx/${selectedTransaction.hash}`}
+									target='_blank'
+									rel='noreferrer'
+							>
+								{selectedTransaction.hash}
+							</a>
+						</p>
+					</div>
+				</Modal>
+			)}
+		</div>
+	);
 };
 
 export default TransactionList;
